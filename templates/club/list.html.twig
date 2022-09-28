@@ -12,12 +12,7 @@
     {% else %}
     {% endif %}
         complet
-        {% set somme = 0 %}
-            {% for j in tab_formations %}
-       
-                     {% set  somme = somme + j.nb_participants %}
-                         somme = {{somme}}
-            {% endfor %}
+        
     {% endif %}
     
     <br>
@@ -25,13 +20,21 @@
    
 {% endfor %}
 {% endif %} 
+{% set somme = 0 %}
+            {% for j in tab_formations %}
+       
+                     {% set  somme = somme + j.nb_participants %}
+                    
+                      
+            {% endfor %}   somme = {{somme}}
+{% set max_value= 0 %}
+
+{% for i in tab_formations %}
+    {% set max_value = max(i.nb_participants,max_value) %} 
+ {% endfor %}
+ <br>
+ max participants={{ max_value }}
+
 <h5 style="color: blue">Nbr de formations: {{ tab_formations|length }}</h5>
 {% set x =10 %}
 x={{ x }}
-{% set y= 0 %}
-{% for i in tab_formations %}
-    {% if i.nb_participants> y %}
-    {% set y= i.nb_participants %}
-     <br>max_participant = {{y}}
-     
-{% endif %} {% endfor %}
