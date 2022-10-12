@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\ClassRoom;
-use App\Form\ClassRoomtype;
+use App\Form\ClassRoomType;
 use App\Repository\ClassRoomRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,6 +38,7 @@ public function addClassroom(ManagerRegistry $doctrine,Request $request)
         $em->flush();
         return $this->redirectToRoute("list_classroom");
     }
+    return $this->renderForm("classroom/add.html.twig",array("formClassRoom"=>$form));
 }
 #[route('/upadateform',name:'update_classroom')]
 public function updateClassroom($id,ClassRoomRepository $Repository ,ManagerRegistry $doctrine,Request $request)
