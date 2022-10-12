@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\ClassRoom;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,6 +15,7 @@ class ClassRoomType extends AbstractType
         $builder
             ->add('name')
             ->add('Description')
+            ->add("submit",SubmitType::class)
         ;
     }
 
