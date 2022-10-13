@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+
 class ClassRoomController extends AbstractController
 {
 #[route('/classroom',name:'app_classroom')]
@@ -33,14 +34,14 @@ public function addClassroom(ManagerRegistry $doctrine,Request $request)
     $form->handleRequest($request);
     if($form->isSubmitted())
     {
-        $em=$doctrine->getManager($request);
+        $em=$doctrine->getManager();
         $em->persist($classroom);
         $em->flush();
         return $this->redirectToRoute("list_classroom");
     }
     return $this->renderForm("classroom/add.html.twig",array("formClassRoom"=>$form));
 }
-#[route('/upadateform',name:'update_classroom')]
+#[route('/upadateform/{id}',name:'update_classroom')]
 public function updateClassroom($id,ClassRoomRepository $Repository ,ManagerRegistry $doctrine,Request $request)
 {
     $classroom=$Repository->find($id);
@@ -48,18 +49,18 @@ public function updateClassroom($id,ClassRoomRepository $Repository ,ManagerRegi
     $form->handleRequest($request);
     if($form->isSubmitted())
     {
-        $em=$doctrine->getManager($request);
+        $em=$doctrine->getManager();
         $em->flush();
         return $this->redirectToRoute("list_classroom");
     }
-    return $this->render("classroom/list.html.twig",array("tab_class"=>$classroom));
+    return $this->renderForm("classroom/update.html.twig",array("formClassRoom"=>$form));
 }
+
 #[route('/deleteform/{id}',name:'remove')]
 public function deleteClassroom($id,ClassRoomRepository $Repository ,ManagerRegistry $doctrine,Request $request)
 {
-    $classroom=$Repository->find($id);
-    
-        $em=$doctrine->getManager($request);
+         $classroom=$Repository->find($id);
+        $em=$doctrine->getManager();
         $em->remove($classroom);
         $em->flush();
         return $this->redirectToRoute("list_classroom");
