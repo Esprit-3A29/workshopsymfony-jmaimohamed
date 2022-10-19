@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ClassRoomRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +21,15 @@ class ClassRoom
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Description = null;
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    #[ORM\OneToMany(mappedBy: 'classRoom', targetEntity: Student::class)]
+    
+    private Collection $students;
+
+    public function __construct()
+    {
+        $this->students = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -47,5 +58,39 @@ class ClassRoom
         $this->Description = $Description;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Student>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Student $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+            $student->setClassRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): self
+    {
+        if ($this->students->removeElement($student)) {
+            // set the owning side to null (unless already changed)
+            if ($student->getClassRoom() === $this) {
+                $student->setClassRoom(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return (String)$this->getName();
     }
 }

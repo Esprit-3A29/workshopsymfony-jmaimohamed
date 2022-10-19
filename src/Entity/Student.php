@@ -10,12 +10,16 @@ class Student
 {
     #[ORM\Id]
     #[ORM\Column]
-    private ?int $Nce = null;
+    private ?int $nce = null;
     #[ORM\Column(length: 50)]
     private ?string $username = null;
 
     #[ORM\Column]
     private ?float $moyenne = null;
+
+    #[ORM\ManyToOne(inversedBy: 'students')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
+    private ?ClassRoom $classRoom = null;
 
     public function getNCE(): ?int
     {
@@ -47,6 +51,18 @@ class Student
     public function setMoyenne(float $moyenne): self
     {
         $this->moyenne = $moyenne;
+
+        return $this;
+    }
+
+    public function getClassRoom(): ?ClassRoom
+    {
+        return $this->classRoom;
+    }
+
+    public function setClassRoom(?ClassRoom $classRoom): self
+    {
+        $this->classRoom = $classRoom;
 
         return $this;
     }
