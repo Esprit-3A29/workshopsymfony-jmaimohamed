@@ -23,7 +23,9 @@ public function index():Response
 public function listClassroom(ClassRoomRepository $repository)
 {
     $classroom=$repository->findAll();
-    return $this->render("classroom/list.html.twig",array("tab_class"=>$classroom));
+    $order = $repository->order();
+    $topStudents= $repository->topStudent();
+    return $this->render("classroom/list.html.twig",array("tab_class"=>$classroom,"orderbyy"=>$order,'topStudents'=>$topStudents));
 
 }
 #[route('/addform',name:'add_classroom')]

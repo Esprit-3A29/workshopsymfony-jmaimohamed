@@ -28,7 +28,9 @@ class StudentController extends AbstractController
     #[route('/listeStudent',name:'list_student')]
     public function listStudent(StudentRepository $repository):Response
     {$List=$repository->findAll();
-    return $this->render('student/listeStudent.html.twig',['tab_student'=>$List]);}
+        $topStudents= $repository->topStudent();
+    return $this->render('student/listeStudent.html.twig',array("tab_student"=>$List,'topStudents'=>$topStudents));
+    }
     
     #[route('/add1',name:'add_student')]
 public function addStudent(ManagerRegistry $doctrine,Request $request, StudentRepository $repository )

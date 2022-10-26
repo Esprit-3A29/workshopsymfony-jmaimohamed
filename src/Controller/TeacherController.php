@@ -24,10 +24,10 @@ class TeacherController extends AbstractController
     }
 
 
-    #[Route('/showteacher/{aze}', name: 'show_teacher')]
+    #[Route("/showteacher/{name}", name: 'show_teacher')]
 
     public function showTeacher($name)
     {
-    return $this->render("teacher/showTeacher.html.twig",$name);
+    return $this->render("teacher/showTeacher.html.twig",["aze"=>$name]);
     }
 }

@@ -8,3 +8,14 @@
     <a href="{{ path('remove',{'id':s.id}) }}">Remove</a>
     <br>
 {% endfor %}
+<h4>azeazazeezezazeaeazazeazeazeazeazeazezaaeza</h4>
+<a href="{{ path('add_classroom') }}">Add Student</a>
+<h4>List Student</h4>
+{% for i in  orderbyy %}
+    id: {{ i.id }}
+    username: {{ i.name }}
+    moyenne: {{ i.Description }}
+    <a href="{{ path('update_classroom',{'id':i.id}) }}">Update</a>
+    <a href="{{ path('remove',{'id':i.id}) }}">Remove</a>
+    <br>
+{% endfor %}

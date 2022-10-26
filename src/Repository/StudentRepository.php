@@ -38,7 +38,13 @@ class StudentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function topStudent(){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT s FROM APP\Entity\Student s 
+            WHERE s.moyenne >= 15");
+        return $query->getResult();
+    }
 //    /**
 //     * @return Student[] Returns an array of Student objects
 //     */

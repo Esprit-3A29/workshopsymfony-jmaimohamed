@@ -1,18 +1,18 @@
-<img src="{{ asset('img/fugu1.jpg') }}" alt="student">
+<img src="{{ asset('.jpg') }}" alt="student">
 <h1>La  liste de formations de la classe {{c1}} dans la salle {{c2}}</h1>
 {% if tab_formations is empty %}
 <h6 style="color: coral">Pas de formations</h6>
 {% else %}
 {% for i in tab_formations %}
-    {% if i.Description == "theorique"%}
+    {% if i.Description == "theorique" %}
     ref: {{i.ref}} titre: {{i.Titre|upper}} description: {{i.Description}} nb participants
     {{i.nb_participants}}
     Participer :
     {% if i.nb_participants == 0 %}<a href="{{ path('app_reservation') }}">Participer</a>
-    {% else %}
-    {% endif %}
+   
+     {% else %}
         complet
-        
+        {% endif %}
     {% endif %}
     
     <br>

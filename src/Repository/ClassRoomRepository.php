@@ -38,6 +38,11 @@ class ClassRoomRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+public function order()
+{
+    $qb= $this->createQueryBuilder('x')->orderBy('x.name','asc');
+    return $qb->getQuery()->getResult();
+}
 
 //    /**
 //     * @return ClassRoom[] Returns an array of ClassRoom objects
